@@ -3,6 +3,7 @@ backend:
   name: github
   repo: amekuro/asanokiri-source # 内容仓库（源码）；勿写部署仓库 asanokiri（会被构建覆盖）
   branch: main
+  base_url: https://sveltia-cms-auth.asanokiri.workers.dev
 
 site_url: https://amekuro.github.io/asanokiri/
 media_folder: public/uploads
