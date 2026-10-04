@@ -1,9 +1,11 @@
 <script setup lang="ts">
     import { computed, onMounted, onUnmounted, ref } from "vue";
-    import content from "virtual:club-content";
     import { CalendarDays, ChevronDown, ChevronUp, MapPin, Megaphone } from "@lucide/vue";
+    import content from "virtual:club-content";
     import { isNoticeActive, noticeStorageKey } from "../lib/notice";
 
+    // setTimeout 的最长延迟；更远的时间边界在定时器到期或回到页面时重新计算。
+    const maxDelay = 2 ** 31 - 1;
     const { notice } = content;
     const now = ref(Date.now());
     const dismissed = ref(false);
@@ -22,8 +24,7 @@
         const boundaries = [Date.parse(notice.starts_at), Date.parse(notice.ends_at)].filter(
             (time) => time > now.value,
         );
-        if (boundaries.length)
-            timer = setTimeout(update, Math.min(Math.min(...boundaries) - now.value + 1, 2147483647));
+        if (boundaries.length) timer = setTimeout(update, Math.min(Math.min(...boundaries) - now.value + 1, maxDelay));
     }
     function close() {
         dismissed.value = true;

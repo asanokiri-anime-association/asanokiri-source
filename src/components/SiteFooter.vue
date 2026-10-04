@@ -2,6 +2,7 @@
     import { ArrowUpRight, Feather } from "@lucide/vue";
     import content from "virtual:club-content";
     import MagicSeal from "./MagicSeal.vue";
+
     const { site } = content;
 </script>
 

@@ -1,8 +1,9 @@
 <script setup lang="ts">
     import { ArrowUpRight, BookOpen, Feather, Sparkles } from "@lucide/vue";
     import content from "virtual:club-content";
-    import MarkdownContent from "../components/MarkdownContent.vue";
     import MagicSeal from "../components/MagicSeal.vue";
+    import MarkdownContent from "../components/MarkdownContent.vue";
+
     const { culture } = content;
 </script>
 

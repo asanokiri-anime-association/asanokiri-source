@@ -13,14 +13,12 @@
     } from "@lucide/vue";
     import content from "virtual:club-content";
     import NoticeBanner from "../components/NoticeBanner.vue";
-    import ActivityList from "../components/ActivityList.vue";
     import HistoryTimeline from "../components/HistoryTimeline.vue";
     import MagicSeal from "../components/MagicSeal.vue";
+    import ActivityList from "../components/ActivityList.vue";
 
     const { site, history, culture, activities } = content;
-    const featuredActivities = activities.filter((item) => item.featured).slice(0, 3);
-    const featuredCharacters = culture.characters.filter((item) => item.featured).slice(0, 2);
-    const featuredWorks = culture.works.filter((item) => item.featured).slice(0, 2);
+    // 按部门名称选择图标，未列出的部门使用 BookOpen。
     const departmentIcons: Record<string, Component> = {
         主席团: Compass,
         COS部: Theater,
@@ -29,6 +27,9 @@
         宅务部: KeyRound,
         映像研究部: Clapperboard,
     };
+    const featuredCharacters = culture.characters.filter((item) => item.featured).slice(0, 2);
+    const featuredWorks = culture.works.filter((item) => item.featured).slice(0, 2);
+    const featuredActivities = activities.filter((item) => item.featured).slice(0, 3);
 </script>
 
 <template>

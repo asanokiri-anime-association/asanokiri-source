@@ -8,13 +8,15 @@ import { siteSchema, historySchema, cultureSchema, activitiesSchema, noticeSchem
 import type { ClubContent, Contact } from "../src/content/schema.ts";
 import { renderMarkdown } from "./markdown.ts";
 
-export const contentFiles = [
-    "data/site.yml",
-    "data/history.yml",
-    "data/culture.yml",
-    "data/activities.yml",
-    "data/notice.yml",
-] as const;
+const files = {
+    site: "data/site.yml",
+    history: "data/history.yml",
+    culture: "data/culture.yml",
+    activities: "data/activities.yml",
+    notice: "data/notice.yml",
+} as const;
+
+export const contentFiles = Object.values(files);
 
 function read<T extends z.ZodType>(root: string, file: string, schema: T): z.output<T> {
     const value: unknown = load(readFileSync(join(root, file), "utf8"), { schema: JSON_SCHEMA });
@@ -40,11 +42,11 @@ function withMarkdown<T extends { text: string }>(item: T) {
 }
 
 export function loadContent(root: string): ClubContent {
-    const site = read(root, contentFiles[0], siteSchema);
-    const history = read(root, contentFiles[1], historySchema).items;
-    const culture = read(root, contentFiles[2], cultureSchema);
-    const activities = read(root, contentFiles[3], activitiesSchema).items;
-    const notice = read(root, contentFiles[4], noticeSchema);
+    const site = read(root, files.site, siteSchema);
+    const history = read(root, files.history, historySchema).items;
+    const culture = read(root, files.culture, cultureSchema);
+    const activities = read(root, files.activities, activitiesSchema).items;
+    const notice = read(root, files.notice, noticeSchema);
     checkImages(root, { site, history, culture, activities });
 
     const contacts: Contact[] = site.contacts;

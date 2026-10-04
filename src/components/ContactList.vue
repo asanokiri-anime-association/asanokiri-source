@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { ArrowUpRight, ScanLine } from "@lucide/vue";
     import content from "virtual:club-content";
+
     const { contacts } = content.site;
 </script>
 
@@ -40,7 +41,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {{ contact.name === "QQ 群" ? "打开群链接" : "前往主页" }}
+                    打开链接
                     <ArrowUpRight aria-hidden="true" />
                 </a>
             </div>

@@ -2,6 +2,7 @@
     import { ArrowLeft } from "@lucide/vue";
     import MagicSeal from "../components/MagicSeal.vue";
 </script>
+
 <template>
     <div class="container missing-page">
         <MagicSeal />

@@ -3,8 +3,8 @@
     import { ArrowDown, BookOpen, ChevronRight } from "@lucide/vue";
     import type { HistoryEntry } from "../content/schema";
     import { chapterAtRail, railPosition, scrollProgress, scrollTopAtChapter, segmentFill } from "../lib/chronicle";
-    import MagicSeal from "./MagicSeal.vue";
     import MarkdownContent from "./MarkdownContent.vue";
+    import MagicSeal from "./MagicSeal.vue";
 
     const props = defineProps<{ items: HistoryEntry[]; id: string }>();
     const track = ref<HTMLElement>();

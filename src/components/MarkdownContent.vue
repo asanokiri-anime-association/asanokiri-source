@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import type { MarkdownHtml } from "../content/schema";
+
     defineProps<{ html: MarkdownHtml }>();
 </script>
 

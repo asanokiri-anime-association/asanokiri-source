@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
 
 export const navigation = [
-    { path: "/", label: "首页" },
-    { path: "/about", label: "了解社团" },
-    { path: "/culture", label: "文化与作品" },
-    { path: "/activities", label: "代表活动" },
+    { path: "/", label: "首页", chapter: "I" },
+    { path: "/about", label: "了解社团", chapter: "II" },
+    { path: "/culture", label: "文化与作品", chapter: "III" },
+    { path: "/activities", label: "代表活动", chapter: "IV" },
 ];
 
 const router = createRouter({

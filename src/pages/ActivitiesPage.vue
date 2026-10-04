@@ -1,8 +1,9 @@
 <script setup lang="ts">
     import { Clapperboard } from "@lucide/vue";
     import content from "virtual:club-content";
-    import ActivityList from "../components/ActivityList.vue";
     import MagicSeal from "../components/MagicSeal.vue";
+    import ActivityList from "../components/ActivityList.vue";
+
     const { activities } = content;
 </script>
 

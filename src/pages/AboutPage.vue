@@ -1,10 +1,11 @@
 <script setup lang="ts">
     import { BookOpen, Compass, Send } from "@lucide/vue";
     import content from "virtual:club-content";
-    import ContactList from "../components/ContactList.vue";
-    import HistoryTimeline from "../components/HistoryTimeline.vue";
-    import MarkdownContent from "../components/MarkdownContent.vue";
     import MagicSeal from "../components/MagicSeal.vue";
+    import MarkdownContent from "../components/MarkdownContent.vue";
+    import HistoryTimeline from "../components/HistoryTimeline.vue";
+    import ContactList from "../components/ContactList.vue";
+
     const { site, history } = content;
 </script>
 

@@ -547,6 +547,7 @@
         overflow: visible;
         break-inside: avoid;
     }
+    /* 窄视口的固定模式会显示横向年份导航，打印时需以相同的特异性覆盖。 */
     .chronicle--pinned .chronicle-index,
     .chronicle-index {
         display: none;

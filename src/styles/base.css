@@ -143,9 +143,6 @@ main {
     width: 15px;
     height: 15px;
 }
-.muted {
-    color: var(--muted);
-}
 .text-link,
 .text-button {
     display: inline-flex;

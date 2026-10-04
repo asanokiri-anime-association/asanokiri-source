@@ -2,6 +2,7 @@
     import { ArrowUpRight, CalendarDays } from "@lucide/vue";
     import type { Activity } from "../content/schema";
     import MarkdownContent from "./MarkdownContent.vue";
+
     defineProps<{ items: Activity[] }>();
 </script>
 
@@ -16,7 +17,7 @@
                 <div class="activity-body">
                     <p class="eyebrow">
                         <CalendarDays aria-hidden="true" />
-                        <time :datetime="item.date.length === 10 ? item.date : undefined">{{ item.date }}</time>
+                        <time :datetime="item.date">{{ item.date }}</time>
                         <span v-if="item.category">/ {{ item.category }}</span>
                     </p>
                     <h3>{{ item.title }}</h3>
