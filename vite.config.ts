@@ -30,9 +30,9 @@ export default defineConfig({
             },
             transformIndexHtml: {
                 order: "pre",
-                handler(html) {
+                async handler(html) {
                     const source = readFileSync(root + "src/theme/bootstrap.ts", "utf8");
-                    const script = compileThemeScript(source);
+                    const script = await compileThemeScript(source);
                     return html.replace("<!-- theme-bootstrap -->", `<script>${script}</script>`);
                 },
             },

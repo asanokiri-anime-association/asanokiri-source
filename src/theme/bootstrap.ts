@@ -10,7 +10,7 @@ type ThemeMode = import("./types").ThemeMode;
     }
 
     try {
-        const saved = localStorage.getItem(key) ?? localStorage.getItem("vitepress-theme-appearance");
+        const saved = localStorage.getItem(key);
         if (isMode(saved)) preference = saved;
     } catch {
         /* 禁用存储时仍能跟随系统。 */

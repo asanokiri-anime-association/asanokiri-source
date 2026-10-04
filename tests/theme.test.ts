@@ -5,22 +5,11 @@ import { runInNewContext } from "node:vm";
 import { compileThemeScript } from "../scripts/theme.ts";
 import type { ThemeController } from "../src/theme/types.ts";
 
-const source = compileThemeScript(readFileSync(new URL("../src/theme/bootstrap.ts", import.meta.url), "utf8"));
+const source = await compileThemeScript(readFileSync(new URL("../src/theme/bootstrap.ts", import.meta.url), "utf8"));
 
-function start({
-    dark = false,
-    saved,
-    legacy,
-    blocked = false,
-}: {
-    dark?: boolean;
-    saved?: string;
-    legacy?: string;
-    blocked?: boolean;
-} = {}) {
+function start({ dark = false, saved, blocked = false }: { dark?: boolean; saved?: string; blocked?: boolean } = {}) {
     const storage = new Map<string, string>();
     if (saved !== undefined) storage.set("asanokiri-theme", saved);
-    if (legacy !== undefined) storage.set("vitepress-theme-appearance", legacy);
     const system = Object.assign(new EventTarget(), { matches: dark });
     const window: EventTarget & {
         matchMedia: () => typeof system;
@@ -103,11 +92,6 @@ test("禁用存储仍可渲染深色并切换主题", () => {
     assert.equal(page.html.dataset.theme, "dark");
     page.controller.set("light");
     assert.equal(page.html.dataset.theme, "light");
-});
-
-test("保留旧网站的显式主题选择，新选择优先", () => {
-    assert.equal(start({ legacy: "dark" }).html.dataset.theme, "dark");
-    assert.equal(start({ saved: "auto", legacy: "dark" }).html.dataset.theme, "light");
 });
 
 test("跨标签页同步设置，清除设置后恢复跟随系统", () => {
