@@ -1,27 +1,31 @@
 <script setup lang="ts">
-    import { computed, onMounted, onUnmounted, ref } from "vue";
+    import { computed, onMounted, onUnmounted, ref, watch } from "vue";
     import { ArrowDown, BookOpen, ChevronRight } from "@lucide/vue";
     import type { HistoryEntry } from "../content/schema";
-    import { chapterAtProgress, chapterSegmentProgress, progressAtChapter, scrollProgress } from "../lib/chronicle";
+    import { chapterAtRail, railPosition, scrollProgress, scrollTopAtChapter, segmentFill } from "../lib/chronicle";
     import MagicSeal from "./MagicSeal.vue";
     import MarkdownContent from "./MarkdownContent.vue";
 
     const props = defineProps<{ items: HistoryEntry[]; id: string }>();
     const track = ref<HTMLElement>();
     const stage = ref<HTMLElement>();
+    const nav = ref<HTMLElement>();
     const pinned = ref(false);
     const progress = ref(0);
-    const active = computed(() => chapterAtProgress(progress.value, props.items.length));
+    // 节点在连接线到达时点亮，当前章节即最后一个到达的节点。
+    const rail = computed(() => railPosition(progress.value, props.items.length));
+    const active = computed(() => chapterAtRail(rail.value, props.items.length));
     let media: MediaQueryList | undefined;
     let observer: ResizeObserver | undefined;
     let frame = 0;
 
+    // 舞台在轨道内容区内固定，进度从舞台贴住页眉开始，到舞台底部触及轨道内容区底部结束。
     function geometry() {
         if (!track.value || !stage.value) return { start: 0, distance: 0 };
         const inset = Number.parseFloat(getComputedStyle(stage.value).top) || 0;
         return {
-            start: window.scrollY + track.value.getBoundingClientRect().top - inset,
-            distance: track.value.offsetHeight - stage.value.offsetHeight,
+            start: window.scrollY + track.value.getBoundingClientRect().top + track.value.clientTop - inset,
+            distance: track.value.clientHeight - stage.value.offsetHeight,
         };
     }
     function update() {
@@ -35,13 +39,33 @@
     }
     function syncMode() {
         pinned.value = Boolean(media?.matches) && props.items.length > 1;
+        if (!pinned.value) progress.value = 0;
         schedule();
+    }
+    // 在一个方向上使 [start, start + size] 进入可见区域所需的最小滚动位置；已可见时保持原位。
+    function nearestScroll(start: number, size: number, scroll: number, view: number) {
+        if (start < scroll) return start;
+        if (start + size > scroll + view) return start + size - view;
+        return scroll;
+    }
+    // 年份较多时导航在内部滚动。只滚动导航自身，且仅在当前年份不可见时移动，不打断访客对导航的滚动。
+    function revealCurrent() {
+        const box = nav.value;
+        const item = box?.querySelector("ol")?.children[active.value];
+        if (!pinned.value || !box || !(item instanceof HTMLElement)) return;
+        const left = nearestScroll(item.offsetLeft, item.offsetWidth, box.scrollLeft, box.clientWidth);
+        const top = nearestScroll(item.offsetTop, item.offsetHeight, box.scrollTop, box.clientHeight);
+        if (left !== box.scrollLeft || top !== box.scrollTop) box.scrollTo({ left, top, behavior: "smooth" });
+    }
+    function resize() {
+        schedule();
+        revealCurrent();
     }
     function jump(index: number) {
         if (pinned.value) {
             const { start, distance } = geometry();
             window.scrollTo({
-                top: start + progressAtChapter(index, props.items.length) * distance,
+                top: scrollTopAtChapter(index, props.items.length, start, distance, window.devicePixelRatio),
                 behavior: "smooth",
             });
         } else {
@@ -49,11 +73,12 @@
         }
     }
 
+    watch([active, pinned], revealCurrent, { flush: "post" });
     onMounted(() => {
         media = window.matchMedia("(prefers-reduced-motion: no-preference)");
         media.addEventListener("change", syncMode);
         window.addEventListener("scroll", schedule, { passive: true });
-        observer = new ResizeObserver(schedule);
+        observer = new ResizeObserver(resize);
         if (track.value) observer.observe(track.value);
         if (stage.value) observer.observe(stage.value);
         syncMode();
@@ -102,19 +127,24 @@
                 </header>
 
                 <div class="chronicle-layout">
-                    <nav class="chronicle-index" aria-label="历程年份">
+                    <nav ref="nav" class="chronicle-index" aria-label="历程年份">
                         <ol>
                             <li v-for="(item, index) in items" :key="`${item.year}-${item.title}`">
-                                <span v-if="index < items.length - 1" class="chronicle-rail" aria-hidden="true">
+                                <span
+                                    class="chronicle-rail"
+                                    :class="{ 'chronicle-rail--tail': index === items.length - 1 }"
+                                    aria-hidden="true"
+                                >
                                     <span
-                                        :style="{
-                                            '--segment-progress': chapterSegmentProgress(progress, index, items.length),
-                                        }"
+                                        :style="{ '--segment-progress': segmentFill(rail, index, items.length) }"
                                     ></span>
                                 </span>
                                 <button
-                                    :class="{ 'is-current': index === active }"
-                                    :aria-current="index === active ? 'step' : undefined"
+                                    :class="{
+                                        'is-reached': pinned && index <= active,
+                                        'is-current': pinned && index === active,
+                                    }"
+                                    :aria-current="pinned && index === active ? 'step' : undefined"
                                     :aria-label="`${item.year} ${item.title}`"
                                     @click="jump(index)"
                                 >
