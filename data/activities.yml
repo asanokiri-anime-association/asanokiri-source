@@ -1,25 +1,25 @@
 items:
-    - title: 2021 观影活动
-      date: "2021"
-      category: 历史活动
-      summary: 一起看过的故事，也是社团共同的记忆。图片取自旧版网站留存资料，具体日期与原始推文待补充。
-      image: /uploads/legacy/screening-2021.jpg
-      link: ""
-      featured: true
-      visible: true
-    - title: 2021 外景记录
-      date: "2021"
-      category: 历史活动
-      summary: COS与外拍活动的现场记录。图片取自旧版网站，活动说明与原始推文待补充。
-      image: /uploads/legacy/outing-2021.jpg
-      link: ""
-      featured: true
-      visible: true
-    - title: 2019 换届大会
-      date: "2019"
-      category: 社团记录
-      summary: 新一届成员接过接力棒。图片取自旧版网站，具体日期与原始推文待补充。
-      image: /uploads/legacy/handover-2019.jpg
-      link: ""
-      featured: false
-      visible: true
+  - title: 2021 观影活动
+    date: '2021'
+    category: 历史活动
+    summary: 一起看过的故事，也是社团共同的记忆。图片取自旧版网站留存资料，具体日期与原始推文待补充。
+    image: /uploads/legacy/screening-2021.jpg
+    link: ''
+    featured: true
+    visible: true
+  - title: 2021 外景记录
+    date: '2021'
+    category: 历史活动
+    summary: COS与外拍活动的现场记录。图片取自旧版网站，活动说明与原始推文待补充。
+    image: /uploads/legacy/outing-2021.jpg
+    link: ''
+    featured: true
+    visible: true
+  - title: 2019 换届大会
+    date: '2019'
+    category: 社团记录
+    summary: 新一届成员接过接力棒。图片取自旧版网站，具体日期与原始推文待补充。
+    image: /uploads/legacy/handover-2019.jpg
+    link: ''
+    featured: false
+    visible: true

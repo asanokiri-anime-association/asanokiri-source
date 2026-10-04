@@ -1,9 +1,9 @@
 # 启用前填写时间、地点和展示区间；日期时间含 +08:00 时区。
 enabled: false
-id: ""
-title: ""
-text: ""
-event_time: ""
-location: ""
-starts_at: ""
-ends_at: ""
+id: ''
+title: ''
+text: ''
+event_time: ''
+location: ''
+starts_at: ''
+ends_at: ''
