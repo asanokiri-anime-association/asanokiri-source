@@ -1,0 +1,277 @@
+# 内容提交到 GitHub 后，由 Cloudflare Pages 自动构建。
+backend:
+    name: github
+    repo: asanokiri-anime-association/asanokiri-source
+    branch: main
+    base_url: https://sveltia-cms-auth.asanokiri.workers.dev
+
+site_url: https://www.hzyzzw.com
+media_folder: public/uploads
+public_folder: /uploads
+editor:
+    preview: false
+
+collections:
+    - name: content
+      label: 网站内容
+      files:
+          - name: site
+            label: 首页、部门与联系方式
+            file: data/site.yml
+            fields:
+                - { name: name, label: 社团名称, widget: string }
+                - { name: name_ja, label: 日文读法, widget: string, required: false }
+                - { name: school, label: 学校名称, widget: string, required: false }
+                - { name: tagline, label: 首页标语, widget: string, required: false }
+                - { name: description, label: 社团简介, widget: text, required: false }
+                - { name: logo, label: 社团头像, widget: image, required: false }
+                - { name: home_image, label: 首页社团插画, widget: image, required: false }
+                - { name: home_caption, label: 社团插画说明或署名, widget: string, required: false }
+                - {
+                      name: content_note,
+                      label: 资料整理提示,
+                      widget: text,
+                      required: false,
+                      hint: 资料核对完成后可清空。,
+                  }
+                - name: departments
+                  label: 部门构成
+                  widget: list
+                  required: false
+                  summary: "{{fields.name}}"
+                  hint: 拖动调整前台顺序。删改介绍前请与对应部长沟通。
+                  fields:
+                      - { name: name, label: 部门名称, widget: string }
+                      - {
+                            name: text,
+                            label: 部门介绍,
+                            widget: markdown,
+                            required: false,
+                            buttons:
+                                [bold, italic, link, heading-one, heading-two, quote, bulleted-list, numbered-list],
+                            editor_components: [],
+                            hint: 支持段落、标题、强调、列表与链接。图片使用独立配图字段。,
+                        }
+                      - { name: image, label: 配图, widget: image, required: false }
+                      - { name: visible, label: 在网站展示, widget: boolean, default: true }
+                - name: contacts
+                  label: 公开联系方式
+                  widget: list
+                  required: false
+                  summary: "{{fields.name}}"
+                  fields:
+                      - { name: name, label: 名称, widget: string }
+                      - { name: text, label: 说明, widget: string, required: false }
+                      - {
+                            name: link,
+                            label: 跳转链接,
+                            widget: string,
+                            required: false,
+                            hint: 填写完整的 https:// 链接。,
+                        }
+                      - {
+                            name: qr_link,
+                            label: 二维码链接,
+                            widget: string,
+                            required: false,
+                            hint: 填写 https:// 链接后自动生成二维码；没有跳转链接时也用它作为按钮链接。,
+                        }
+                      - {
+                            name: qr_image,
+                            label: 二维码图片,
+                            widget: image,
+                            required: false,
+                            hint: 上传图片时优先使用图片，适用于公众号二维码。,
+                        }
+          - name: history
+            label: 发展历程
+            file: data/history.yml
+            fields:
+                - name: items
+                  label: 历程条目
+                  widget: list
+                  required: false
+                  summary: "{{fields.year}} · {{fields.title}}"
+                  hint: 按从早到晚排序，可拖动调整。说明宜简短，支持 Markdown 段落、强调、列表与链接。
+                  fields:
+                      - { name: year, label: 年份, widget: string }
+                      - { name: title, label: 标题, widget: string }
+                      - {
+                            name: text,
+                            label: 说明,
+                            widget: markdown,
+                            required: false,
+                            buttons:
+                                [bold, italic, link, heading-one, heading-two, quote, bulleted-list, numbered-list],
+                            editor_components: [],
+                            hint: 支持段落、标题、强调、列表与链接。图片使用独立配图字段。,
+                        }
+                      - { name: image, label: 配图, widget: image, required: false }
+                      - { name: visible, label: 在网站展示, widget: boolean, default: true }
+          - name: culture
+            label: 文化、角色与作品
+            file: data/culture.yml
+            fields:
+                - { name: intro, label: 栏目介绍, widget: text, required: false }
+                - name: story
+                  label: 社团物语
+                  widget: object
+                  fields:
+                      - { name: title, label: 标题, widget: string, required: false }
+                      - {
+                            name: text,
+                            label: 故事正文,
+                            widget: markdown,
+                            required: false,
+                            buttons:
+                                [bold, italic, link, heading-one, heading-two, quote, bulleted-list, numbered-list],
+                            editor_components: [],
+                            hint: 支持段落、标题、强调、列表与链接。图片使用独立配图字段。,
+                        }
+                      - { name: image, label: 横幅插画, widget: image, required: false }
+                - name: characters
+                  label: 角色形象
+                  widget: list
+                  required: false
+                  summary: "{{fields.name}}"
+                  fields:
+                      - { name: name, label: 角色名称, widget: string }
+                      - {
+                            name: text,
+                            label: 角色介绍,
+                            widget: markdown,
+                            required: false,
+                            buttons:
+                                [bold, italic, link, heading-one, heading-two, quote, bulleted-list, numbered-list],
+                            editor_components: [],
+                            hint: 支持段落、标题、强调、列表与链接。图片使用独立配图字段。,
+                        }
+                      - { name: image, label: 角色设定图, widget: image, required: false }
+                      - { name: author, label: 作者或来源, widget: string, required: false }
+                      - { name: year, label: 年份或届次, widget: string, required: false }
+                      - { name: featured, label: 首页推荐, widget: boolean, default: false, hint: 按列表顺序取前两位。 }
+                      - { name: visible, label: 在网站展示, widget: boolean, default: true }
+                - name: works
+                  label: 历届作品
+                  widget: list
+                  required: false
+                  summary: "{{fields.title}}"
+                  fields:
+                      - { name: title, label: 作品名称, widget: string }
+                      - {
+                            name: text,
+                            label: 作品介绍,
+                            widget: markdown,
+                            required: false,
+                            buttons:
+                                [bold, italic, link, heading-one, heading-two, quote, bulleted-list, numbered-list],
+                            editor_components: [],
+                            hint: 支持段落、标题、强调、列表与链接。图片使用独立配图字段。,
+                        }
+                      - { name: image, label: 作品或封面图, widget: image, required: false }
+                      - { name: author, label: 作者或来源, widget: string, required: false }
+                      - { name: year, label: 年份或届次, widget: string, required: false }
+                      - {
+                            name: link,
+                            label: 作品链接,
+                            widget: string,
+                            required: false,
+                            hint: 可填写 B 站等 https:// 外链；视频不上传仓库。,
+                        }
+                      - { name: featured, label: 首页推荐, widget: boolean, default: false, hint: 按列表顺序取前两项。 }
+                      - { name: visible, label: 在网站展示, widget: boolean, default: true }
+          - name: activities
+            label: 代表活动
+            file: data/activities.yml
+            fields:
+                - name: items
+                  label: 活动记录
+                  widget: list
+                  required: false
+                  summary: "{{fields.date}} · {{fields.title}}"
+                  hint: 只收录有代表性的活动，详情链接到公众号。网站自动按日期从新到旧排列。
+                  fields:
+                      - { name: title, label: 活动名称, widget: string }
+                      - {
+                            name: date,
+                            label: 活动日期,
+                            widget: string,
+                            hint: 填写 2026-09-01；旧资料只确定年份时填写 2021。,
+                        }
+                      - { name: category, label: 活动类别, widget: string, required: false }
+                      - {
+                            name: summary,
+                            label: 简短介绍,
+                            widget: markdown,
+                            required: false,
+                            buttons:
+                                [bold, italic, link, heading-one, heading-two, quote, bulleted-list, numbered-list],
+                            editor_components: [],
+                            hint: 支持段落、标题、强调、列表与链接。图片使用独立配图字段。,
+                        }
+                      - { name: image, label: 封面图, widget: image, required: false }
+                      - {
+                            name: link,
+                            label: 公众号推文或活动详情链接,
+                            widget: string,
+                            required: false,
+                            hint: 完整的 https:// 链接。缺少旧推文时可留空。,
+                        }
+                      - {
+                            name: featured,
+                            label: 首页推荐,
+                            widget: boolean,
+                            default: false,
+                            hint: 首页展示日期最新的三项推荐活动。,
+                        }
+                      - { name: visible, label: 在网站展示, widget: boolean, default: true }
+          - name: notice
+            label: 纳新与临时公告
+            file: data/notice.yml
+            fields:
+                - {
+                      name: enabled,
+                      label: 启用公告,
+                      widget: boolean,
+                      default: false,
+                      hint: 公告以首页内嵌提示条展示，到期自动隐藏。,
+                  }
+                - {
+                      name: id,
+                      label: 公告编号,
+                      widget: string,
+                      required: false,
+                      hint: 每次新公告换一个编号，例如 recruitment-2026。,
+                  }
+                - { name: title, label: 公告标题, widget: string, required: false }
+                - { name: text, label: 补充说明, widget: text, required: false }
+                - {
+                      name: event_time,
+                      label: 活动时间说明,
+                      widget: string,
+                      required: false,
+                      hint: 给访客阅读的具体安排，例如 9 月 15 日至 16 日，每天 16 点至 18 点。,
+                  }
+                - { name: location, label: 线下地点, widget: string, required: false }
+                - {
+                      name: starts_at,
+                      label: 开始展示时间,
+                      widget: datetime,
+                      required: false,
+                      format: "YYYY-MM-DDTHH:mm:ssZ",
+                      date_format: YYYY-MM-DD,
+                      time_format: HH:mm,
+                      picker_utc: false,
+                      hint: 按编辑设备所在时区填写，保存时包含时区。,
+                  }
+                - {
+                      name: ends_at,
+                      label: 停止展示时间,
+                      widget: datetime,
+                      required: false,
+                      format: "YYYY-MM-DDTHH:mm:ssZ",
+                      date_format: YYYY-MM-DD,
+                      time_format: HH:mm,
+                      picker_utc: false,
+                      hint: 必须晚于开始展示时间；到期无需再次发布即可隐藏。,
+                  }

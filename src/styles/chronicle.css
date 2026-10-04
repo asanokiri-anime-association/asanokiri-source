@@ -1,0 +1,544 @@
+/* 未启用固定模式时，历程以完整的文档顺序呈现。 */
+.chronicle {
+    position: relative;
+    background: var(--surface-muted);
+    border-block: 1px solid var(--line);
+}
+.chronicle-stage {
+    padding-block: 64px;
+}
+.chronicle-heading {
+    margin-bottom: 42px;
+}
+.chronicle-count {
+    font: 500 28px/1 var(--font-latin);
+    color: var(--gold);
+}
+.chronicle-heading .section-aside {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.chronicle-layout {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 48px;
+}
+.chronicle-index {
+    --chronicle-node-offset: 24px;
+    --chronicle-year-gap: 8px;
+    position: relative;
+    align-self: start;
+    margin-block: 24px;
+}
+.chronicle-index ol {
+    list-style: none;
+}
+.chronicle-index li {
+    position: relative;
+}
+.chronicle-index li + li {
+    margin-top: var(--chronicle-year-gap);
+}
+.chronicle-index button {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 16px;
+    gap: 0 10px;
+    width: 100%;
+    padding: 14px 10px 14px 24px;
+    text-align: left;
+    color: var(--muted);
+    border: 0;
+    background: none;
+}
+.chronicle-nav-year {
+    font: 500 23px/1.1 var(--font-latin);
+}
+.chronicle-nav-title {
+    font-size: 11px;
+    margin-top: 6px;
+    grid-column: 1;
+}
+.chronicle-index button > svg {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    opacity: 0;
+}
+.chronicle-index button.is-current {
+    color: var(--ink);
+}
+.chronicle-index button.is-current > svg {
+    opacity: 1;
+    color: var(--gold);
+}
+.chronicle-dot {
+    position: absolute;
+    top: var(--chronicle-node-offset);
+    left: 0;
+    width: 5px;
+    height: 5px;
+    background: var(--line);
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.is-current > .chronicle-dot {
+    background: var(--gold);
+    outline: 1px solid var(--gold);
+    outline-offset: 4px;
+}
+.chronicle-rail {
+    position: absolute;
+    left: 0;
+    top: var(--chronicle-node-offset);
+    width: 1px;
+    height: calc(100% + var(--chronicle-year-gap));
+    background: var(--line);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+.chronicle-rail > span {
+    display: block;
+    height: 100%;
+    background: var(--gold);
+    transform-origin: top;
+    transform: scaleY(var(--segment-progress, 0));
+}
+.chronicle-spreads {
+    min-width: 0;
+}
+.chronicle-entry {
+    display: grid;
+    grid-template-columns: 1fr 0.95fr;
+    gap: 42px;
+    align-items: center;
+    padding-block: 24px;
+}
+.chronicle-entry + .chronicle-entry {
+    border-top: 1px solid var(--line);
+    margin-top: 32px;
+    padding-top: 48px;
+}
+.chronicle-year {
+    font: 500 clamp(70px, 7.6vw, 112px)/0.95 var(--font-latin);
+    color: var(--gold);
+    letter-spacing: -0.045em;
+    margin-bottom: 25px;
+}
+.chronicle-entry h3 {
+    font-size: 25px;
+    margin: 12px 0 18px;
+}
+.chronicle-entry .prose {
+    font-size: 13px;
+}
+.chronicle-art {
+    position: relative;
+    padding: 7px;
+    border: 1px solid var(--line);
+    align-self: center;
+    margin-bottom: 24px;
+}
+.chronicle-art::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border: 1px solid var(--line);
+    pointer-events: none;
+    opacity: 0.5;
+}
+.chronicle-art img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+.chronicle-art figcaption {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+}
+.chronicle-art--seal {
+    border: 0;
+    aspect-ratio: 1;
+}
+.chronicle-art--seal::after {
+    display: none;
+}
+.chronicle-art--seal .magic-seal {
+    width: 100%;
+    height: 100%;
+    color: var(--gold);
+    opacity: 0.55;
+}
+.chronicle-art--seal > span {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    color: var(--gold);
+    font: 500 14px/1.6 var(--font-latin);
+    letter-spacing: 0.17em;
+    background: radial-gradient(ellipse, var(--surface-muted) 0%, var(--surface-muted) 14%, transparent 42%);
+}
+.chronicle-bottom {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 56px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+}
+.chronicle:not(.chronicle--pinned) .chronicle-count {
+    display: none;
+}
+
+/* 滚动轨道提供阅读距离，舞台保持在页眉下方。每章仍是独立的语义 article。 */
+.chronicle--pinned {
+    height: calc(100svh + (var(--chapter-count) - 1) * 70svh);
+}
+.chronicle--pinned .chronicle-stage {
+    position: sticky;
+    top: var(--header-height);
+    height: calc(100svh - var(--header-height));
+    padding-block: clamp(24px, 4.5vh, 52px);
+}
+.chronicle--pinned .chronicle-stage > .container {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: 100%;
+}
+.chronicle--pinned .chronicle-heading {
+    margin-bottom: 16px;
+}
+.chronicle--pinned .chronicle-heading h2 {
+    font-size: clamp(30px, 3vw, 42px);
+}
+.chronicle--pinned .chronicle-layout {
+    align-items: center;
+    min-height: 0;
+}
+.chronicle--pinned .chronicle-index {
+    max-height: 100%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    margin-block: 0;
+    padding-left: 12px;
+    align-self: center;
+}
+.chronicle--pinned .chronicle-spreads {
+    display: grid;
+    height: 100%;
+    min-height: 0;
+    overflow: clip;
+}
+.chronicle--pinned .chronicle-entry {
+    grid-area: 1 / 1;
+    min-width: 0;
+    min-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(18px);
+    transition:
+        opacity 0.35s ease,
+        transform 0.45s ease,
+        visibility 0.35s;
+    margin: 0;
+    border: 0;
+    padding-block: 20px;
+}
+.chronicle--pinned .chronicle-entry.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+.chronicle--pinned .chronicle-entry-copy {
+    min-height: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 4px 0;
+    scrollbar-width: thin;
+}
+.chronicle--pinned .chronicle-art {
+    width: 100%;
+    max-width: 345px;
+    justify-self: center;
+}
+.chronicle--pinned .chronicle-art--seal {
+    max-width: min(330px, 37vh);
+}
+.chronicle--pinned .chronicle-bottom {
+    margin-top: 18px;
+}
+@media (max-width: 1100px) {
+    .chronicle-layout {
+        gap: 28px;
+        grid-template-columns: 170px minmax(0, 1fr);
+    }
+    .chronicle-entry {
+        gap: 25px;
+    }
+}
+@media (max-width: 979px), (max-height: 719px) {
+    .chronicle-index {
+        display: none;
+    }
+    .chronicle-layout {
+        grid-template-columns: 1fr;
+    }
+    .chronicle-entry {
+        padding: 20px 0;
+        gap: 48px;
+    }
+    .chronicle-art {
+        max-width: 340px;
+        width: 100%;
+        justify-self: center;
+    }
+    .chronicle-heading {
+        margin-bottom: 24px;
+    }
+}
+@media (max-width: 600px) {
+    .chronicle-stage {
+        padding-block: 48px;
+    }
+    .chronicle-entry {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-block: 12px;
+    }
+    .chronicle-entry + .chronicle-entry {
+        margin-top: 40px;
+        padding-top: 40px;
+    }
+    .chronicle-entry h3 {
+        font-size: 23px;
+    }
+    .chronicle-year {
+        font-size: 80px;
+        margin-bottom: 20px;
+    }
+    .chronicle-art {
+        max-width: none;
+    }
+    .chronicle-art--seal {
+        max-width: 210px;
+        margin-block: 0 32px;
+    }
+    .chronicle-bottom {
+        gap: 12px;
+        margin-top: 48px;
+        font-size: 8px;
+    }
+    .chronicle-bottom > span:first-child {
+        max-width: 90px;
+    }
+}
+/* 紧凑舞台将年份排成横轴，固定位置与滚动进度保持一致。 */
+@media (max-width: 979px), (max-height: 719px) {
+    .chronicle--pinned .chronicle-stage {
+        padding-block: clamp(16px, 3vh, 28px);
+    }
+    .chronicle--pinned .chronicle-heading {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    .chronicle--pinned .chronicle-heading h2 {
+        font-size: clamp(24px, 3.5vw, 32px);
+        margin-top: 8px;
+    }
+    .chronicle--pinned .chronicle-heading .scroll-cue {
+        display: none;
+    }
+    .chronicle--pinned .chronicle-layout {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        align-items: stretch;
+        gap: 16px;
+    }
+    .chronicle--pinned .chronicle-index {
+        display: block;
+        width: 100%;
+        max-height: none;
+        align-self: stretch;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 12px;
+    }
+    .chronicle--pinned .chronicle-index ol {
+        display: flex;
+    }
+    .chronicle--pinned .chronicle-index li {
+        flex: 1 0 58px;
+        min-width: 0;
+        margin: 0;
+    }
+    .chronicle--pinned .chronicle-index button {
+        display: block;
+        padding: 2px 8px 14px;
+        text-align: center;
+        line-height: 1.2;
+    }
+    .chronicle--pinned .chronicle-nav-title,
+    .chronicle--pinned .chronicle-index button > svg {
+        display: none;
+    }
+    .chronicle--pinned .chronicle-dot {
+        top: auto;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 50%) rotate(45deg);
+    }
+    .chronicle--pinned .chronicle-rail {
+        top: auto;
+        bottom: 0;
+        left: 50%;
+        width: 100%;
+        height: 1px;
+        transform: translateY(50%);
+    }
+    .chronicle--pinned .chronicle-rail > span {
+        transform-origin: left;
+        transform: scaleX(var(--segment-progress, 0));
+    }
+    .chronicle--pinned .chronicle-entry {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+        gap: 24px;
+        margin: 0;
+        padding: 4px 6px 0;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+    .chronicle--pinned .chronicle-entry-copy {
+        max-height: none;
+        overflow: visible;
+    }
+    .chronicle--pinned .chronicle-year {
+        font-size: clamp(56px, 9vw, 86px);
+        margin-bottom: 16px;
+    }
+    .chronicle--pinned .chronicle-art {
+        max-width: 330px;
+    }
+    .chronicle--pinned .chronicle-art--seal {
+        max-width: min(270px, 32svh);
+    }
+}
+@media (max-width: 600px) {
+    .chronicle--pinned .chronicle-stage {
+        padding-block: 16px;
+    }
+    .chronicle--pinned .chronicle-heading {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .chronicle--pinned .chronicle-kicker,
+    .chronicle--pinned .chronicle-heading .section-aside,
+    .chronicle--pinned .chronicle-bottom {
+        display: none;
+    }
+    .chronicle--pinned .chronicle-layout {
+        gap: 14px;
+    }
+    .chronicle--pinned .chronicle-nav-year {
+        font-size: 21px;
+    }
+    .chronicle--pinned .chronicle-entry {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        align-content: space-between;
+        gap: 14px;
+    }
+    .chronicle--pinned .chronicle-year {
+        font-size: 52px;
+        margin-bottom: 8px;
+    }
+    .chronicle--pinned .chronicle-entry h3 {
+        font-size: 20px;
+        margin-block: 6px 10px;
+    }
+    .chronicle--pinned .chronicle-entry .prose {
+        line-height: 1.85;
+    }
+    .chronicle--pinned .chronicle-art {
+        width: min(100%, 280px);
+        height: clamp(100px, 18svh, 155px);
+        margin: 0 auto 36px;
+    }
+    .chronicle--pinned .chronicle-art img {
+        height: 100%;
+        aspect-ratio: auto;
+    }
+    .chronicle--pinned .chronicle-art--seal {
+        width: clamp(100px, 18svh, 155px);
+    }
+    .chronicle--pinned .chronicle-art--seal > span {
+        font-size: 11px;
+    }
+}
+@media (max-height: 600px) {
+    .chronicle--pinned .chronicle-stage {
+        padding-block: 10px;
+    }
+    .chronicle--pinned .chronicle-heading .eyebrow,
+    .chronicle--pinned .chronicle-bottom {
+        display: none;
+    }
+    .chronicle--pinned .chronicle-heading {
+        margin-bottom: 6px;
+    }
+    .chronicle--pinned .chronicle-heading h2 {
+        font-size: 23px;
+        margin: 0;
+    }
+    .chronicle--pinned .chronicle-layout {
+        gap: 8px;
+    }
+    .chronicle--pinned .chronicle-year {
+        font-size: 40px;
+        margin-bottom: 6px;
+    }
+    .chronicle--pinned .chronicle-entry h3 {
+        font-size: 19px;
+        margin-block: 6px;
+    }
+    .chronicle--pinned .chronicle-entry .prose {
+        line-height: 1.75;
+    }
+    .chronicle--pinned .chronicle-art {
+        max-width: min(250px, 34svh);
+    }
+}
+@media print {
+    .chronicle--pinned {
+        height: auto;
+    }
+    .chronicle--pinned .chronicle-stage {
+        position: static;
+        height: auto;
+    }
+    .chronicle--pinned .chronicle-spreads {
+        display: block;
+        overflow: visible;
+    }
+    .chronicle--pinned .chronicle-entry {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        overflow: visible;
+        break-inside: avoid;
+    }
+    .chronicle--pinned .chronicle-index,
+    .chronicle-index {
+        display: none;
+    }
+}

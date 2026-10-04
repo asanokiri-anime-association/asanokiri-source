@@ -1,0 +1,5 @@
+node_modules
+dist
+public/uploads
+public/licenses
+package-lock.json

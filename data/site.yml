@@ -1,0 +1,36 @@
+name: 朝之雾动漫社
+name_ja: あさのきり
+school: 河源职业技术学院
+tagline: 在这里，遇见同好。
+description: 朝之雾动漫社成立于2004年。我们因动画、漫画与游戏相聚，也一起参与放映、外拍、舞台演出和影像创作。这里记录社团的组成、走过的历程，以及一届届成员留下的作品。
+logo: /uploads/legacy/club-avatar.jpg
+home_image: /uploads/legacy/xiaozhao-moon.jpg
+home_caption: 朝之雾物语 · 小朝｜旧版网站留存插画
+content_note: 资料整理中：部分介绍、角色设定与活动图片沿用旧版资料，正在由现任社团干部核对。
+departments:
+    - name: 主席团
+      text: 统筹社团的日常运营与年度活动，对接校方与兄弟社团，让每一场活动都能顺利发生。（示例文案，待主席团确认）
+    - name: COS部
+      text: 从服装道具制作、妆造研究到漫展出击与舞台剧演出，把喜欢的角色带到现实世界。（示例文案，待部门确认）
+    - name: 动漫部落
+      text: 周常放映与圆桌漫谈的主阵地，负责片单策划、新番资讯与同好交流。（示例文案，待部门确认）
+    - name: 宣传部
+      text: 海报、推文与视觉物料的产地，负责社团对内对外的每一次亮相。（示例文案，待部门确认）
+    - name: 宅务部
+      text: 物资、场地与后勤的守护者，活动现场一切井井有条的幕后功臣。（示例文案，待部门确认）
+    - name: 映像研究部
+      text: MAD / AMV 剪辑、宅舞与短片拍摄、活动影像记录的据点，本网站也由映研维护。（示例文案，待部门确认）
+contacts:
+    - name: QQ 群
+      text: ""
+      link: ""
+      qr_link: https://qm.qq.com/q/ZViA3cBE0E
+    - name: 微信公众号
+      text: 朝之雾动漫社
+      link: ""
+      qr_link: ""
+      qr_image: /uploads/qrcode_gh_a1109c117dc4_1.jpg
+    - name: bilibili
+      text: 官方账号
+      link: https://space.bilibili.com/133720253
+      qr_link: https://space.bilibili.com/133720253

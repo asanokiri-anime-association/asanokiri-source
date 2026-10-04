@@ -1,0 +1,68 @@
+# 架构与实现说明
+
+## 项目边界
+
+这是低频更新的公开门户，内容由干部在 CMS 管理。使用 Vue 3、TypeScript、Vue Router、Vite 和普通 CSS。页面 DOM 清晰可读，栏目结构和视觉顺序一致；图标使用 Lucide，装饰纹章使用独立 SVG 组件。
+
+没有需要跨页面同步的业务状态，不引入 Pinia。页面数据来自构建产物，浏览器不下载 YAML 解析器、Zod、Markdown 解析器或二维码库。扩展功能时增加页面、内容模型与组件，不预建空 API 或通用页面配置引擎。
+
+## 目录
+
+- src/pages：四个页面及未找到页面，保留完整栏目 DOM。
+- src/components：共享区域、富文本容器和独立交互。
+- src/styles：主题变量、公共排版、共享组件、时间轴及页面栏目样式。
+- src/router：路由与导航。
+- src/content/schema.ts：原始内容校验、推导类型和构建结果类型。
+- src/theme：首屏主题初始化与类型。
+- data：CMS 编辑的 YAML；public/uploads：公开内容图片。
+- public/art：装饰插画；public/licenses：随站点分发的字体与图标许可。
+- scripts/content.ts：内容校验与构建；scripts/markdown.ts：受限 Markdown 排版。
+- tests：重要状态与内容安全边界。
+
+## 类型与构建
+
+采用 Vue 官方 @vue/tsconfig，分别配置浏览器与 Node 的类型环境。启用 strict、noUncheckedIndexedAccess、exactOptionalPropertyTypes、未使用变量检查和 strictTemplates。构建先执行 vue-tsc 与 tsc，不能只依赖 Vite 转译。
+
+YAML 在构建时经过 Zod 校验，不能仅依靠类型断言。CMS 字段覆盖测试检查后台与原始内容模型的一致性。Vue 模板、虚拟内容模块与 Markdown 输出都有明确类型。
+
+TypeScript 固定为与当前 vue-tsc 兼容的 6.0.3；依赖升级需要一起核对工具链。
+
+## 内容与 Markdown
+
+CMS 将结构化内容存为 YAML，构建时检查必填字段、日期、HTTPS 外链及本地图片存在性。日期使用 YAML JSON schema 读取，保留原始文本和时区。
+
+部门、历程、角色与作品保留编辑顺序；活动按日期倒序。隐藏项在生成前台数据前过滤。首页推荐数量在页面中显式定义，空栏目不展示。
+
+Markdown 用于部门介绍、历程说明、社团物语、角色介绍、作品介绍及活动简介。保留独立字段的标题、配图、作者、年份等，正文不承担页面结构。
+
+解析器关闭 HTML、自动链接和排版替换，不启用插件或正文图片。链接仅接受 HTTPS、站内绝对路径及锚点；外链附加独立窗口保护。Markdown 标题从三级开始，正文样式由 .prose 统一管理。
+
+只有 MarkdownContent.vue 使用 v-html，参数是由解析器生成的 MarkdownHtml 类型。该类型标记约束代码调用，真正的安全边界是解析配置与输入校验。原始 CMS 文本不会直接交给 v-html。
+
+## 主题与首屏
+
+src/theme/bootstrap.ts 在构建时去除类型，以普通脚本内联到 head，在样式和应用模块之前同步确定 data-theme、color-scheme 与浏览器主题色。脚本不导入运行时模块。
+
+偏好为 light、dark 或 auto，实际颜色为 light 或 dark。显式选择不会被系统变化覆盖，系统变化只影响 auto。存储不可用时仍可切换，标签页之间同步偏好。旧主题偏好只作为存储迁移兼容。
+
+支持 View Transitions 时使用约 0.38 秒交叉渐变，不支持时退回颜色过渡；减少动态效果下直接切换。theme.css 和初始化脚本中的首屏背景色必须同步。字体从站点自身加载，保留系统字体回退。
+
+## 滚动时间轴
+
+HistoryTimeline.vue 以有序年份导航及独立 article 表达完整历程。没有减少动态效果偏好且条目多于一项时，开启固定舞台，不按屏幕宽高停用。
+
+外层轨道提供滚动距离，内层使用 position: sticky 固定于页眉下方。被动滚动监听通过 requestAnimationFrame 更新阅读进度，进度映射到当前章节。点击年份滚动到该章；不拦截滚轮或替换浏览器滚动。
+
+实际页面滚动位置是唯一的进度来源；节点高亮、正文与连接线均从该进度派生，不分别维护选中状态或动画进度。每章阅读区间的中点对应年份节点，点击仅将页面滚动到同一中点，首尾各保留半章的停留距离。当前章节取距离进度最近的节点；连接线按相邻节点之间的进度填充。连接线属于有序列表中的各项，由 CSS 连接实际节点中心，横向和纵向排版共享同一套进度计算，不依赖整条轨道的估算长度。
+
+非当前章节使用 inert 与 aria-hidden，避免不可见链接获得焦点。年份按钮可用键盘操作。宽度不足 980px 或高度不足 720px 时使用横向年份导航，手机内容按文字、配图上下排列。极低视口或长正文可在当前章节内滚动阅读，不隐藏内容。只有减少动态效果模式将所有章节按 DOM 顺序展开。媒体查询与 ResizeObserver 响应设置和窗口变化，卸载时移除监听。
+
+## 公告与发布
+
+公告展示区间为开始时刻（含）到结束时刻（不含）。按下一个时间边界更新，回到标签页时校准。已发布公告到期不需重新构建。
+
+收起状态保存在访客设备，编号、时间、地点或正文变化时重新提示。不使用模态遮罩或强制交互。设备时钟只用于通知展示。
+
+CMS 默认直接发布，没有审批状态；组织若禁止直接写入 main，需同时调整发布方式。Cloudflare Pages 构建源码仓库并发布 dist，现有 Sveltia Worker 负责 GitHub 登录。浏览器路由依赖 Pages 的 SPA 回退，不生成顶层 404.html。真实登录、发布和域名在部署时联调。
+
+参考：[Vue TypeScript 指南](https://vuejs.org/guide/typescript/overview.html)、[markdown-it 安全说明](https://github.com/markdown-it/markdown-it/blob/master/docs/security.md)。

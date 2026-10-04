@@ -1,0 +1,74 @@
+/* 颜色、字体与页面尺度的统一入口；首屏也使用这组背景色。 */
+:root {
+    color-scheme: light;
+    --page: #f4f0e5;
+    --surface: #fbf8ef;
+    --surface-muted: #eae6d9;
+    --ink: #263e38;
+    --muted: #59665d;
+    --accent: #355b4d;
+    --accent-soft: #e2e5d5;
+    --gold: #7d6038;
+    --line: #cfc8b3;
+    --paper: #e4dfd0;
+    --focus: #966229;
+    --inverse: #efe7cf;
+    --inverse-muted: #c2c5ae;
+    --night: #173431;
+    --font-body: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-display: "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+    --font-latin: "Cormorant Garamond", Georgia, serif;
+    --header-height: 88px;
+    --page-width: 1200px;
+    background: var(--page);
+    color: var(--ink);
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #122b2c;
+    --surface: #193535;
+    --surface-muted: #203b3b;
+    --ink: #eae3ce;
+    --muted: #b3bbab;
+    --accent: #d1bd8c;
+    --accent-soft: #2f4840;
+    --gold: #c4a773;
+    --line: #41554d;
+    --paper: #263f3c;
+    --focus: #edca8b;
+    --night: #0d2223;
+}
+/* 脚本被禁用时，系统深色仍有相应的首屏背景。 */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --page: #122b2c;
+        --ink: #eae3ce;
+        color-scheme: dark;
+    }
+}
+@media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 0.38s;
+        animation-timing-function: ease-in-out;
+    }
+    html.theme-fallback,
+    html.theme-fallback body,
+    html.theme-fallback #app,
+    html.theme-fallback header,
+    html.theme-fallback footer,
+    html.theme-fallback section,
+    html.theme-fallback article,
+    html.theme-fallback button,
+    html.theme-fallback a {
+        transition:
+            color 0.32s ease,
+            background-color 0.32s ease,
+            border-color 0.32s ease;
+    }
+}
+@media (max-width: 760px) {
+    :root {
+        --header-height: 126px;
+    }
+}

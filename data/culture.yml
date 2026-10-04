@@ -1,0 +1,56 @@
+intro: 角色、故事与作品，记录着历届成员对朝之雾的想象。以下内容整理自旧版网站，作者署名与设定版本待进一步核对。
+story:
+    title: 朝之雾物语
+    text: 一个勇敢无畏充满元气的女孩小朝，为了追随崇拜的母亲的步伐，踏上了去曦时魔法学院修行历练的道路。在那里，小朝与伙伴们一起共同学习魔法，攻克难关。在曦时魔法学院生活的时光中，小朝渐渐了解到了关于母亲的故事，还有当年隐藏在深处的秘密……
+    image: /uploads/legacy/club-banner.png
+characters:
+    - name: 小朝
+      text: 为了追随母亲的脚步，小朝进入曦时魔法学院，踏上与伙伴们共同学习和冒险的旅途。角色介绍整理自旧版网站。
+      image: /uploads/legacy/xiaozhao.jpg
+      author: ""
+      year: ""
+      featured: true
+      visible: true
+    - name: 小雾
+      text: 朝之雾物语角色。设定图沿用旧版留存资料，详细介绍待核对。
+      image: /uploads/legacy/xiaowu.jpg
+      author: ""
+      year: ""
+      featured: true
+      visible: true
+    - name: 小之
+      text: 朝之雾物语角色。设定图沿用旧版留存资料，详细介绍待核对。
+      image: /uploads/legacy/xiaozhi.jpg
+      author: ""
+      year: ""
+      featured: false
+      visible: true
+    - name: 花意
+      text: 朝之雾物语角色。设定图沿用旧版留存资料，详细介绍待核对。
+      image: /uploads/legacy/huayi.jpg
+      author: ""
+      year: ""
+      featured: false
+      visible: true
+    - name: 双琊
+      text: 朝之雾物语角色。设定图沿用旧版留存资料，详细介绍待核对。
+      image: /uploads/legacy/shuangya.jpg
+      author: ""
+      year: ""
+      featured: false
+      visible: true
+    - name: 阿莱德·泰坦
+      text: 朝之雾物语角色。设定图沿用旧版留存资料，详细介绍待核对。
+      image: /uploads/legacy/alaide.jpg
+      author: ""
+      year: ""
+      featured: false
+      visible: true
+    - name: 彼墨
+      text: 朝之雾物语角色。设定图沿用旧版留存资料，详细介绍待核对。
+      image: /uploads/legacy/bimo.jpg
+      author: ""
+      year: ""
+      featured: false
+      visible: true
+works: []

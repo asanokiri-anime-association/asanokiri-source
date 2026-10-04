@@ -1,0 +1,438 @@
+* {
+    box-sizing: border-box;
+}
+html {
+    scrollbar-gutter: stable;
+}
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.85;
+    overflow-wrap: anywhere;
+    -webkit-font-smoothing: antialiased;
+}
+button,
+input {
+    font: inherit;
+}
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+button {
+    cursor: pointer;
+}
+a {
+    color: inherit;
+    text-underline-offset: 0.3em;
+}
+a:hover {
+    color: var(--accent);
+}
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+figure,
+p {
+    margin: 0;
+}
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.6;
+    text-wrap: balance;
+    margin: 0;
+}
+h1 {
+    font-size: clamp(2.2rem, 4.3vw, 3.7rem);
+    letter-spacing: 0.04em;
+}
+h2 {
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+    letter-spacing: 0.035em;
+}
+h3 {
+    font-size: 1.4rem;
+}
+h1 em,
+h2 em {
+    color: var(--accent);
+    font-style: normal;
+}
+ul,
+ol {
+    padding: 0;
+    margin: 0;
+}
+svg.lucide {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.5;
+    flex-shrink: 0;
+}
+::selection {
+    background: var(--accent-soft);
+    color: var(--ink);
+}
+:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 5px;
+}
+main:focus {
+    outline: none;
+}
+main {
+    min-height: 65vh;
+}
+[id] {
+    scroll-margin-top: calc(var(--header-height) + 24px);
+}
+.container {
+    width: min(var(--page-width), calc(100% - 96px));
+    margin-inline: auto;
+}
+.section {
+    padding-block: 88px;
+}
+.section + .section {
+    padding-top: 16px;
+}
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    margin-bottom: 44px;
+}
+.section-heading h2 {
+    margin-top: 14px;
+}
+.section-introduction {
+    max-width: 410px;
+    padding-bottom: 6px;
+    color: var(--muted);
+}
+.section-introduction .text-link {
+    margin-top: 22px;
+}
+.section-aside {
+    flex-shrink: 0;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+}
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+.eyebrow svg.lucide {
+    width: 15px;
+    height: 15px;
+}
+.muted {
+    color: var(--muted);
+}
+.text-link,
+.text-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 0 6px;
+    border: 0;
+    border-bottom: 1px solid var(--gold);
+    background: transparent;
+    text-decoration: none;
+    color: var(--accent);
+    font-size: 13px;
+    line-height: 1.7;
+}
+.text-link svg,
+.button-link svg {
+    transition: transform 0.2s ease;
+}
+.text-link:hover svg {
+    transform: translate(2px, -2px);
+}
+.button-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 17px 26px;
+    background: var(--ink);
+    color: var(--page);
+    border: 1px solid var(--ink);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+.button-link::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 1px solid currentColor;
+    opacity: 0.22;
+    pointer-events: none;
+}
+.button-link:hover {
+    color: var(--page);
+    background: var(--accent);
+    border-color: var(--accent);
+}
+.button-link:hover svg {
+    transform: translateX(3px);
+}
+.button-link--outline {
+    background: transparent;
+    border-color: var(--gold);
+    color: inherit;
+}
+.button-link--outline:hover {
+    background: #ffffff0d;
+    border-color: var(--inverse-muted);
+    color: inherit;
+}
+.small-rule {
+    display: inline-block;
+    width: 38px;
+    height: 1px;
+    background: currentColor;
+}
+.small-diamond {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    transform: rotate(45deg);
+    background: var(--gold);
+}
+.rule {
+    height: 1px;
+    flex: 1;
+    background: var(--line);
+}
+.scroll-cue {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+}
+.scroll-cue svg.lucide {
+    height: 22px;
+    width: 16px;
+}
+.content-note {
+    color: var(--muted);
+    border-left: 1px solid var(--gold);
+    padding-left: 12px;
+    font-size: 11px;
+    margin-top: 24px;
+    line-height: 1.9;
+}
+.index-number {
+    font-family: var(--font-latin);
+    color: var(--gold);
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1;
+}
+.prose {
+    color: var(--muted);
+    line-height: 2;
+}
+.prose > * + * {
+    margin-top: 1em;
+}
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+    margin-top: 1.5em;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.15em;
+}
+.prose ul,
+.prose ol {
+    padding-left: 1.5em;
+}
+.prose li + li {
+    margin-top: 0.35em;
+}
+.prose a {
+    color: var(--accent);
+}
+.prose strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+.prose blockquote {
+    margin-inline: 0;
+    padding: 0.4em 1.2em;
+    border-left: 2px solid var(--gold);
+    font-family: var(--font-display);
+}
+.prose hr {
+    margin-block: 2em;
+    border: 0;
+    border-top: 1px solid var(--line);
+}
+.prose pre {
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em;
+    background: var(--surface-muted);
+}
+.prose code {
+    font-size: 0.88em;
+}
+.prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+.prose th,
+.prose td {
+    padding: 0.5em 0.8em;
+    border: 1px solid var(--line);
+    text-align: left;
+}
+.page-intro {
+    position: relative;
+    padding-block: 80px 56px;
+    min-height: 330px;
+    border-bottom: 1px solid var(--line);
+}
+.page-intro > div {
+    position: relative;
+    max-width: 870px;
+    z-index: 1;
+}
+.page-intro h1 {
+    margin: 22px 0 25px;
+}
+.page-lead {
+    max-width: 660px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 2;
+}
+.page-seal {
+    position: absolute;
+    right: 0;
+    top: 42px;
+    width: 265px;
+    color: var(--gold);
+    opacity: 0.14;
+    pointer-events: none;
+}
+.empty-state {
+    padding-block: 64px;
+    color: var(--muted);
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+.skip-link {
+    position: fixed;
+    z-index: 100;
+    left: 16px;
+    top: -120px;
+    padding: 12px 20px;
+    background: var(--surface);
+}
+.skip-link:focus {
+    top: 12px;
+}
+@media (max-width: 980px) {
+    .container {
+        width: calc(100% - 64px);
+    }
+    .section-heading {
+        gap: 28px;
+    }
+    .section-introduction {
+        max-width: 340px;
+    }
+}
+@media (max-width: 760px) {
+    .container {
+        width: calc(100% - 40px);
+    }
+    .section {
+        padding-block: 56px;
+    }
+    .section + .section {
+        padding-top: 8px;
+    }
+    .section-heading {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+    .section-introduction {
+        max-width: none;
+    }
+    .section-heading h2 {
+        margin-top: 12px;
+    }
+    .eyebrow {
+        letter-spacing: 0.08em;
+        font-size: 10px;
+    }
+    .page-intro {
+        padding-block: 46px 36px;
+        min-height: 0;
+    }
+    .page-intro h1 {
+        font-size: clamp(1.9rem, 7.3vw, 3rem);
+    }
+    .page-intro h1 em {
+        display: block;
+    }
+    .page-seal {
+        width: 180px;
+        right: -8px;
+        top: 20px;
+        opacity: 0.1;
+    }
+    .page-lead {
+        font-size: 14px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}
