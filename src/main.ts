@@ -9,5 +9,4 @@ import "./styles/components.css";
 import "./styles/chronicle.css";
 import "./styles/pages.css";
 
-const app = createApp(App).use(router);
-router.isReady().then(() => app.mount("#app"));
+createApp(App).use(router).mount("#app");

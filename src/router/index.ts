@@ -1,4 +1,6 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { nextTick } from "vue";
+import { createRouter, createWebHistory, START_LOCATION } from "vue-router";
+import content from "virtual:club-content";
 import HomePage from "../pages/HomePage.vue";
 
 export const navigation = [
@@ -43,6 +45,16 @@ const router = createRouter({
         }
         return { top: 0 };
     },
+});
+
+// 换页后更新标题，并把焦点移到正文，方便读屏和键盘用户；首次加载和同页锚点跳转不移动焦点。
+router.afterEach(async (to, from, failure) => {
+    if (failure) return;
+    document.title = `${to.meta.title} · ${content.site.name}`;
+    if (from !== START_LOCATION && to.path !== from.path) {
+        await nextTick();
+        document.getElementById("main")?.focus({ preventScroll: true });
+    }
 });
 
 export default router;
