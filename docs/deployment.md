@@ -2,42 +2,46 @@
 
 ## Cloudflare Pages
 
-继续连接组织仓库 `asanokiri-anime-association/asanokiri-source`，生产分支 `main`。本次重构需要把现有项目的构建设置改为：
+Pages 项目连接组织仓库 `asanokiri-anime-association/asanokiri-source`，生产分支为 `main`。
 
 | 设置     | 值                                                              |
 | -------- | --------------------------------------------------------------- |
 | 根目录   | 仓库根目录                                                      |
 | 构建命令 | `npm run build`                                                 |
 | 产物目录 | `dist`                                                          |
-| Node     | `24`，仓库已有 `.nvmrc`；如控制台有 `NODE_VERSION`，同步为 `24` |
+| Node     | 读取仓库的 `.nvmrc`；控制台若设置了 `NODE_VERSION` 则须与之一致 |
 
-旧的 `.vitepress/dist` 产物路径和 `SITE_BASE` 设置不再使用。应用部署在域名根路径。代码通过合并进入 `main` 发布；内容通过 CMS 提交到 `main` 发布。分支可由 Pages 生成预览，正式上线前先检查预览。
+Pages 构建镜像不识别 `lts/*` 这类别名，所以 `.nvmrc` 写当前 LTS 的主版本号。Node 发布新的 LTS 后，同时更新 `.nvmrc`、`package.json` 的 `engines` 与 `@types/node` 的主版本。若项目仍保留旧原型的 `.vitepress/dist` 产物目录或 `SITE_BASE` 变量，改为上表设置并删除该变量。
 
-本项目不生成顶层 `404.html`，使用 [Cloudflare Pages 的 SPA 回退](https://developers.cloudflare.com/pages/configuration/serving-pages/#single-page-application-spa-rendering) 支持直接访问和刷新 `/about`、`/culture`、`/activities`。未知页面由 Vue 显示返回首页提示。`/admin/index.html` 为独立静态文件。
+站点部署在域名根路径。代码合并进 `main` 后发布；内容由 CMS 提交到 `main` 后发布。其他分支由 Pages 生成预览，正式上线前先检查预览。
 
-GitHub Actions 的 `check.yml` 只运行测试和构建，权限为只读，不再使用 `DEPLOY_KEY` 或推送第二仓库。旧测试仓库与旧密钥是否归档/撤销由组织管理员另行处理；本轮没有修改远端设置。
+项目不生成顶层 `404.html`，依靠 [Pages 的 SPA 回退](https://developers.cloudflare.com/pages/configuration/serving-pages/#single-page-application-spa-rendering) 支持直接访问和刷新 `/about`、`/culture`、`/activities`；未知地址由前台显示返回首页的提示。`/admin/` 是独立的静态页面。
 
-## 域名与登录
+GitHub Actions 的 `check.yml` 只检查格式、测试和构建，权限只读，不参与部署。旧原型用于推送部署仓库 `amekuro/asanokiri` 的 `DEPLOY_KEY` 已不再需要，由组织管理员决定归档或撤销。
 
-计划沿用 `www.hzyzzw.com`。先在 Pages 项目中添加该自定义域名，再按控制台要求在阿里 DNS 配置 CNAME，等 Cloudflare 完成域名与证书验证。只改 CNAME 而未在 Pages 绑定域名并不完整。根域名 `hzyzzw.com` 如也需访问，应单独选择受支持的绑定或跳转方式；当前未假设阿里 DNS 已具备根域扁平化能力。
+## 域名与 CMS 登录
 
-CMS 配置中的网站地址为 `https://www.hzyzzw.com`，鉴权地址继续使用现有 `https://sveltia-cms-auth.asanokiri.workers.dev`。CMS 和鉴权 Worker 是独立部署，前台不需要新建业务 Worker。
+正式域名为 `www.hzyzzw.com`。先在 Pages 项目中添加该自定义域名，再按控制台提示在阿里 DNS 配置 CNAME，等待 Cloudflare 完成域名与证书验证；只改 CNAME 而不在 Pages 绑定域名并不完整。根域名 `hzyzzw.com` 如需访问，单独选择受支持的绑定或跳转方式，不假设阿里 DNS 支持根域 CNAME 扁平化。
 
-正式切换前核对现有 Worker 的允许来源/站点配置、GitHub OAuth App 和回调地址是否覆盖正式域名。不要把客户端密钥写进仓库。用组织中具有该仓库写权限的测试账号完成一次“登录 → 编辑一条经确认的内容 → 发布 → Pages 成功 → 前台出现”联调。当前本地构建不能替代这一步。
+CMS 配置中的网站地址为 `https://www.hzyzzw.com`，GitHub 登录使用现有的 `https://sveltia-cms-auth.asanokiri.workers.dev`。CMS 与登录 Worker 独立部署，前台不需要其他 Worker。登录用户需要仓库写权限。
+
+切换域名前，核对 Worker 的允许来源、GitHub OAuth App 及回调地址是否覆盖正式域名；客户端密钥不得写进仓库。用组织内有写权限的测试账号完成一次“登录 → 编辑一条已确认的内容 → 发布 → Pages 构建成功 → 前台出现”的联调，本地构建不能代替这一步。
+
+Sveltia CMS 从 unpkg 加载，`public/admin/index.html` 中的版本范围只接收补丁更新。升级到新的次版本前，先查看 Sveltia 的更新说明并在本地打开 `/admin/` 确认配置可以加载。
 
 ## 换届交接
 
-代码留在 GitHub 组织，日常维护者加入映研部对应团队并授予仓库写权限。组织 Owner 至少保留两名适任负责人，普通编辑者不需要组织最高权限。若给 `main` 设置必须走 PR 的分支保护，CMS 直接发布会被阻止；需要同步调整内容发布方式，不能单独改其中一端。
+代码留在 GitHub 组织，日常维护者加入映像研究部对应团队并获得仓库写权限。组织 Owner 至少保留两名适任负责人，普通编辑者不需要组织最高权限。若给 `main` 设置必须经 PR 合并的分支保护，CMS 的直接发布会被阻止，需要同时调整内容发布方式。
 
-在飞书交接文档记录：仓库与团队、Cloudflare 项目与账户负责人、Worker/OAuth App 负责人、阿里 DNS 与域名续费负责人、后台入口、恢复流程。账户归属与恢复方式应可由下一届接管，不在公开仓库记录口令或恢复码。
+在飞书交接文档中记录：仓库与团队、Cloudflare 项目与账户负责人、Worker 与 OAuth App 负责人、阿里 DNS 与域名续费负责人、后台入口和账户恢复流程。账户归属与恢复方式应能由下一届接管，公开仓库中不记录口令或恢复码。
 
-网站回退可使用 Pages 控制台上一成功部署；内容修改可在 GitHub 撤销对应提交。回退后还要修正源数据，防止下一次构建再次发布错误内容。
+## 回退
 
-## 上线前验收
+网站可在 Pages 控制台回退到上一次成功的部署；内容修改可在 GitHub 撤销对应提交。回退后同时修正源数据，避免下一次构建再次发布错误内容。
 
-- 现任干部确认部门介绍、发展年份、角色署名和旧图来源，更新公开联系方式。
-- 运行 `npm ci`、`npm test`、`npm run build`，检查手机和桌面预览。
-- 更新 Pages 构建产物目录，验证子页面刷新、主题持久化和 `/admin/`。
-- 验证正式域名 HTTPS 与现有 CMS 登录发布，再决定上线。
+## 上线前检查
 
-本轮只修改本地源码，没有推送、发布或修改 DNS/Cloudflare/OAuth 设置。
+- 现任干部完成[内容维护](content.md#旧素材与待确认项)中的待确认项，更新公开联系方式。
+- 运行 `npm ci`、`npm test`、`npm run build`，在手机和桌面检查预览。
+- 确认 Pages 构建设置，验证子页面刷新、主题记忆和 `/admin/`。
+- 验证正式域名的 HTTPS 与 CMS 登录发布。
