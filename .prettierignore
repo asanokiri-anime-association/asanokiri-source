@@ -1,5 +1,3 @@
-node_modules
-dist
-public/uploads
-public/licenses
 package-lock.json
+# 由 CMS 写入，保持 CMS 的输出格式
+data/

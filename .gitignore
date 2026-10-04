@@ -1,7 +1,4 @@
 node_modules/
-.idea/
-*.tsbuildinfo
 dist/
-test-results/
-.env.local
-.env.*.local
+.idea/
+.claude/
