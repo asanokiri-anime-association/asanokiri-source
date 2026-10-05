@@ -21,9 +21,7 @@
     function update() {
         now.value = Date.now();
         clearTimeout(timer);
-        const boundaries = [Date.parse(notice.starts_at), Date.parse(notice.ends_at)].filter(
-            (time) => time > now.value,
-        );
+        const boundaries = [Date.parse(notice.starts_at), Date.parse(notice.ends_at)].filter((time) => time > now.value,);
         if (boundaries.length) timer = setTimeout(update, Math.min(Math.min(...boundaries) - now.value + 1, maxDelay));
     }
     function close() {
@@ -47,36 +45,20 @@
 <template>
     <aside v-if="active" class="notice" aria-label="社团公告">
         <div v-if="dismissed" class="container notice-collapsed">
-            <span class="notice-title">
-                <Megaphone aria-hidden="true" />
-                {{ notice.title }}
-            </span>
-            <button class="text-button" @click="dismissed = false">
-                展开公告
-                <ChevronDown aria-hidden="true" />
+            <span class="notice-title"><Megaphone aria-hidden="true" /> {{ notice.title }} </span>
+            <button class="text-button" @click="dismissed = false">展开公告<ChevronDown aria-hidden="true" />
             </button>
         </div>
         <div v-else class="container notice-inner">
             <div class="notice-copy">
-                <strong class="notice-title">
-                    <Megaphone aria-hidden="true" />
-                    {{ notice.title }}
-                </strong>
+                <strong class="notice-title"><Megaphone aria-hidden="true" /> {{ notice.title }} </strong>
                 <p v-if="notice.text">{{ notice.text }}</p>
                 <p class="notice-details">
-                    <span>
-                        <CalendarDays aria-hidden="true" />
-                        时间：{{ notice.event_time }}
-                    </span>
-                    <span>
-                        <MapPin aria-hidden="true" />
-                        地点：{{ notice.location }}
-                    </span>
+                    <span> <CalendarDays aria-hidden="true" /> 时间：{{ notice.event_time }} </span>
+                    <span> <MapPin aria-hidden="true" /> 地点：{{ notice.location }} </span>
                 </p>
             </div>
-            <button class="text-button" @click="close">
-                收起公告
-                <ChevronUp aria-hidden="true" />
+            <button class="text-button" @click="close">收起公告<ChevronUp aria-hidden="true" />
             </button>
         </div>
     </aside>

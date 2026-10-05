@@ -40,8 +40,7 @@
         <div class="hero-border" aria-hidden="true"></div>
         <div class="container hero-content">
             <p class="hero-kicker">
-                <span class="small-rule"></span>
-                ASANOKIRI ANIME ASSOCIATION
+                <span class="small-rule"></span>ASANOKIRI ANIME ASSOCIATION
             </p>
             <p class="hero-japanese" lang="ja">物語は、ここから。</p>
             <h1 id="home-title">{{ site.name }}</h1>
@@ -52,8 +51,7 @@
                 始于 {{ history[0]?.year || "热爱" }}
             </p>
             <RouterLink class="button-link" to="/about">
-                翻开我们的故事
-                <ArrowRight aria-hidden="true" />
+                翻开我们的故事<ArrowRight aria-hidden="true" />
             </RouterLink>
         </div>
         <div class="hero-margin-note" aria-hidden="true">
@@ -62,8 +60,7 @@
         </div>
         <div class="container hero-bottom">
             <a href="#club-chapters" class="scroll-cue">
-                <ArrowDown aria-hidden="true" />
-                向下翻阅
+                <ArrowDown aria-hidden="true" />向下翻阅
             </a>
             <span>AN INVITATION TO OUR WORLD</span>
             <span class="hero-page-number">01 / 04</span>
