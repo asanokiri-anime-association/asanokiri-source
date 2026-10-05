@@ -110,19 +110,13 @@
                             <span class="chronicle-kicker">THE CHRONICLE /</span>
                             <span>社团发展历程</span>
                         </p>
-                        <h2 :id="`${id}-title`">
-                            时光成卷，
-                            <em>热爱不息。</em>
-                        </h2>
+                        <h2 :id="`${id}-title`">时光成卷，<em>热爱不息。</em></h2>
                     </div>
                     <p class="section-aside">
                         <span class="chronicle-count">
                             {{ String(active + 1).padStart(2, "0") }} / {{ String(items.length).padStart(2, "0") }}
                         </span>
-                        <span v-if="pinned" class="scroll-cue">
-                            向下阅读
-                            <ArrowDown aria-hidden="true" />
-                        </span>
+                        <span v-if="pinned" class="scroll-cue">向下阅读<ArrowDown aria-hidden="true" /></span>
                     </p>
                 </header>
 
@@ -135,9 +129,7 @@
                                     :class="{ 'chronicle-rail--tail': index === items.length - 1 }"
                                     aria-hidden="true"
                                 >
-                                    <span
-                                        :style="{ '--segment-progress': segmentFill(rail, index, items.length) }"
-                                    ></span>
+                                    <span :style="{ '--segment-progress': segmentFill(rail, index, items.length) }"></span>
                                 </span>
                                 <button
                                     :class="{
@@ -177,11 +169,7 @@
                                 <img v-if="item.image" :src="item.image" :alt="item.title" loading="lazy" />
                                 <template v-else>
                                     <MagicSeal />
-                                    <span>
-                                        ASANOKIRI
-                                        <br />
-                                        {{ item.year }}
-                                    </span>
+                                    <span>ASANOKIRI<br />{{ item.year }}</span>
                                 </template>
                                 <figcaption>{{ item.image ? "旧版资料配图" : "朝之雾 · 社团编年" }}</figcaption>
                             </figure>

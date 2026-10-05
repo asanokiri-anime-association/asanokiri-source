@@ -39,9 +39,7 @@
         <div class="hero-wash" aria-hidden="true"></div>
         <div class="hero-border" aria-hidden="true"></div>
         <div class="container hero-content">
-            <p class="hero-kicker">
-                <span class="small-rule"></span>ASANOKIRI ANIME ASSOCIATION
-            </p>
+            <p class="hero-kicker"><span class="small-rule"></span>ASANOKIRI ANIME ASSOCIATION</p>
             <p class="hero-japanese" lang="ja">物語は、ここから。</p>
             <h1 id="home-title">{{ site.name }}</h1>
             <p class="hero-tagline">{{ site.tagline }}</p>
@@ -50,18 +48,14 @@
                 <span class="small-diamond" aria-hidden="true"></span>
                 始于 {{ history[0]?.year || "热爱" }}
             </p>
-            <RouterLink class="button-link" to="/about">
-                翻开我们的故事<ArrowRight aria-hidden="true" />
-            </RouterLink>
+            <RouterLink class="button-link" to="/about">翻开我们的故事<ArrowRight aria-hidden="true" /></RouterLink>
         </div>
         <div class="hero-margin-note" aria-hidden="true">
             <span>雾起之处，同好相逢。</span>
             <span>VOL. 01 — THE BEGINNING</span>
         </div>
         <div class="container hero-bottom">
-            <a href="#club-chapters" class="scroll-cue">
-                <ArrowDown aria-hidden="true" />向下翻阅
-            </a>
+            <a href="#club-chapters" class="scroll-cue"><ArrowDown aria-hidden="true" />向下翻阅</a>
             <span>AN INVITATION TO OUR WORLD</span>
             <span class="hero-page-number">01 / 04</span>
         </div>
@@ -70,22 +64,12 @@
     <section id="club-chapters" class="container section home-club" aria-labelledby="club-heading">
         <header class="section-heading">
             <div>
-                <p class="eyebrow">
-                    <Compass aria-hidden="true" />
-                    THE GUILD / 关于社团
-                </p>
-                <h2 id="club-heading">
-                    以热爱为名，
-                    <br />
-                    <em>在这里结伴。</em>
-                </h2>
+                <p class="eyebrow"><Compass aria-hidden="true" />THE GUILD / 关于社团</p>
+                <h2 id="club-heading">以热爱为名，<br /><em>在这里结伴。</em></h2>
             </div>
             <div class="section-introduction">
                 <p>{{ site.description }}</p>
-                <RouterLink class="text-link" to="/about">
-                    认识朝之雾
-                    <ArrowUpRight aria-hidden="true" />
-                </RouterLink>
+                <RouterLink class="text-link" to="/about">认识朝之雾<ArrowUpRight aria-hidden="true" /></RouterLink>
             </div>
         </header>
         <ul class="department-index">
@@ -114,19 +98,10 @@
     >
         <header class="section-heading">
             <div>
-                <p class="eyebrow">
-                    <Feather aria-hidden="true" />
-                    OUR IMAGINATION / 文化与作品
-                </p>
-                <h2 id="culture-heading">
-                    让想象，
-                    <em>拥有名字。</em>
-                </h2>
+                <p class="eyebrow"><Feather aria-hidden="true" />OUR IMAGINATION / 文化与作品</p>
+                <h2 id="culture-heading">让想象，<em>拥有名字。</em></h2>
             </div>
-            <RouterLink class="text-link" to="/culture">
-                走进文化与作品
-                <ArrowUpRight aria-hidden="true" />
-            </RouterLink>
+            <RouterLink class="text-link" to="/culture">走进文化与作品<ArrowUpRight aria-hidden="true" /></RouterLink>
         </header>
         <div class="culture-feature">
             <figure class="culture-illustration">
@@ -146,8 +121,7 @@
                 <h3>{{ culture.story.title || "我们的创作" }}</h3>
                 <p>{{ culture.intro }}</p>
                 <RouterLink class="button-link button-link--outline" to="/culture">
-                    打开故事之书
-                    <BookOpen aria-hidden="true" />
+                    打开故事之书<BookOpen aria-hidden="true" />
                 </RouterLink>
                 <ul v-if="featuredCharacters.length" class="character-index">
                     <li v-for="character in featuredCharacters" :key="character.name">
@@ -163,35 +137,19 @@
             <li v-for="work in featuredWorks" :key="work.title">
                 <RouterLink to="/culture#works-heading">
                     <img v-if="work.image" :src="work.image" :alt="work.title" loading="lazy" />
-                    <span>
-                        {{ work.title }}
-                        <ArrowUpRight aria-hidden="true" />
-                    </span>
+                    <span>{{ work.title }}<ArrowUpRight aria-hidden="true" /></span>
                 </RouterLink>
             </li>
         </ul>
     </section>
 
-    <section
-        v-if="featuredActivities.length"
-        class="container section home-activities"
-        aria-labelledby="activities-heading"
-    >
+    <section v-if="featuredActivities.length" class="container section home-activities" aria-labelledby="activities-heading">
         <header class="section-heading">
             <div>
-                <p class="eyebrow">
-                    <Clapperboard aria-hidden="true" />
-                    FIELD NOTES / 代表活动
-                </p>
-                <h2 id="activities-heading">
-                    把相遇，
-                    <em>留在这一页。</em>
-                </h2>
+                <p class="eyebrow"><Clapperboard aria-hidden="true" />FIELD NOTES / 代表活动</p>
+                <h2 id="activities-heading">把相遇，<em>留在这一页。</em></h2>
             </div>
-            <RouterLink class="text-link" to="/activities">
-                全部活动记录
-                <ArrowUpRight aria-hidden="true" />
-            </RouterLink>
+            <RouterLink class="text-link" to="/activities">全部活动记录<ArrowUpRight aria-hidden="true" /></RouterLink>
         </header>
         <ActivityList :items="featuredActivities" />
     </section>

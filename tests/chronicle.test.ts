@@ -45,11 +45,7 @@ test("任意滚动位置下，节点恰好在连接线到达时点亮并切换�
             const chapter = chapterAtRail(rail, count);
             assert.ok(chapter >= 0 && chapter < count);
             for (let node = 1; node < count; node++) {
-                assert.equal(
-                    node <= chapter,
-                    segmentFill(rail, node - 1, count) === 1,
-                    "节点点亮当且仅当前一段连接线已填满",
-                );
+                assert.equal(node <= chapter, segmentFill(rail, node - 1, count) === 1, "节点点亮当且仅当前一段连接线已填满");
             }
             for (let segment = 0; segment < count; segment++) {
                 const fill = segmentFill(rail, segment, count);

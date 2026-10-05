@@ -11,14 +11,8 @@
     <div class="container">
         <header class="page-intro">
             <div>
-                <p class="eyebrow">
-                    <Feather aria-hidden="true" />
-                    CHAPTER III / 文化与作品
-                </p>
-                <h1>
-                    想象的世界，
-                    <em>由我们书写。</em>
-                </h1>
+                <p class="eyebrow"><Feather aria-hidden="true" />CHAPTER III / 文化与作品</p>
+                <h1>想象的世界，<em>由我们书写。</em></h1>
                 <p class="page-lead">{{ culture.intro }}</p>
             </div>
             <MagicSeal class="page-seal" />
@@ -29,16 +23,9 @@
             </figure>
             <div class="story-layout">
                 <header>
-                    <p class="eyebrow">
-                        <BookOpen aria-hidden="true" />
-                        THE PROLOGUE
-                    </p>
+                    <p class="eyebrow"><BookOpen aria-hidden="true" />THE PROLOGUE</p>
                     <h2 id="story-heading">{{ culture.story.title }}</h2>
-                    <p class="story-side-note">
-                        每一个世界，
-                        <br />
-                        都始于某个人的想象。
-                    </p>
+                    <p class="story-side-note">每一个世界，<br />都始于某个人的想象。</p>
                 </header>
                 <MarkdownContent :html="culture.story.textHtml" />
             </div>
@@ -47,14 +34,8 @@
         <section v-if="culture.characters.length" class="section" aria-labelledby="characters-heading">
             <header class="section-heading">
                 <div>
-                    <p class="eyebrow">
-                        <Sparkles aria-hidden="true" />
-                        THE CHARACTERS
-                    </p>
-                    <h2 id="characters-heading">
-                        故事里的
-                        <em>伙伴们。</em>
-                    </h2>
+                    <p class="eyebrow"><Sparkles aria-hidden="true" />THE CHARACTERS</p>
+                    <h2 id="characters-heading">故事里的<em>伙伴们。</em></h2>
                 </div>
                 <span class="section-aside">角色设定与社团记忆</span>
             </header>
@@ -86,14 +67,8 @@
         <section v-if="culture.works.length" class="section" aria-labelledby="works-heading">
             <header class="section-heading">
                 <div>
-                    <p class="eyebrow">
-                        <Feather aria-hidden="true" />
-                        THE COLLECTION
-                    </p>
-                    <h2 id="works-heading">
-                        把热爱，
-                        <em>变成作品。</em>
-                    </h2>
+                    <p class="eyebrow"><Feather aria-hidden="true" />THE COLLECTION</p>
+                    <h2 id="works-heading">把热爱，<em>变成作品。</em></h2>
                 </div>
             </header>
             <div class="works">
@@ -107,8 +82,7 @@
                     </p>
                     <MarkdownContent :html="work.textHtml" />
                     <a v-if="work.link" class="text-link" :href="work.link" target="_blank" rel="noopener noreferrer">
-                        查看作品
-                        <ArrowUpRight aria-hidden="true" />
+                        查看作品<ArrowUpRight aria-hidden="true" />
                     </a>
                 </article>
             </div>

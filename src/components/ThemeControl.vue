@@ -53,12 +53,7 @@
 <template>
     <fieldset class="theme-control">
         <legend class="sr-only">页面主题</legend>
-        <label
-            v-for="option in modes"
-            :key="option.value"
-            :class="{ selected: mode === option.value }"
-            :title="option.label"
-        >
+        <label v-for="option in modes" :key="option.value" :class="{ selected: mode === option.value }" :title="option.label">
             <input
                 type="radio"
                 name="theme"

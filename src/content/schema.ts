@@ -8,13 +8,7 @@ const url = z
         if (!value) return true;
         try {
             const parsed = new URL(value);
-            return (
-                parsed.protocol === "https:" &&
-                !!parsed.hostname &&
-                !parsed.username &&
-                !parsed.password &&
-                !/\s/.test(value)
-            );
+            return parsed.protocol === "https:" && !!parsed.hostname && !parsed.username && !parsed.password && !/\s/.test(value);
         } catch {
             return false;
         }
@@ -36,10 +30,7 @@ const date = z
     );
 const optionalTime = z
     .string()
-    .refine(
-        (value) => !value || z.iso.datetime({ offset: true }).safeParse(value).success,
-        "请使用有效且含时区的日期时间",
-    )
+    .refine((value) => !value || z.iso.datetime({ offset: true }).safeParse(value).success, "请使用有效且含时区的日期时间")
     .default("");
 const visible = z.boolean().default(true);
 const featured = z.boolean().default(false);

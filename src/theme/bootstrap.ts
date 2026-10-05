@@ -22,9 +22,7 @@ type ThemeMode = import("./types").ThemeMode;
         html.dataset.theme = theme;
         html.dataset.themeMode = preference;
         html.style.colorScheme = theme;
-        document
-            .querySelector('meta[name="theme-color"]')
-            ?.setAttribute("content", theme === "dark" ? "#122b2c" : "#f4f0e5");
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#122b2c" : "#f4f0e5");
         window.dispatchEvent(new Event("club-theme-change"));
     }
 

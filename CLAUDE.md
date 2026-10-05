@@ -26,7 +26,7 @@
 9. Markdown 仅由 scripts/markdown.ts 在构建时解析，关闭原始 HTML，限制链接。只有 MarkdownContent.vue 接收带类型标记的构建结果并使用 v-html，不接受任意字符串或访客输入。
 10. 公开图片使用 public/uploads，装饰插画使用 public/art；旧资料保留待确认说明，不补造作者、日期或活动事实。
 11. 注释描述职责、约束和行为，不记录修改过程。历史变更由 Git 记录，提交按主题拆分。
-12. 格式由 Prettier 统一（.prettierrc.json 与 .editorconfig：4 空格、双引号、分号、行宽 120）；data/ 由 CMS 写入，不参与格式化。
+12. 格式由 Prettier 统一（.prettierrc.json 与 .editorconfig：4 空格、双引号、分号、行宽 130，中文按 2 列计）；data/ 由 CMS 写入，不参与格式化。模板中的换行会渲染为空格：文字与紧邻的图标、em、链接之间不留空白，写在同一行；一行放不下时在标签内换行，不用 Prettier 的 `><` 折行。
 13. 构建输出 dist/，GitHub Actions 只做检查。架构改动同步维护文档，完成后运行 npm run check:format、npm test 与 npm run build。
 
 ## 当前边界

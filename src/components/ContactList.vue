@@ -28,10 +28,7 @@
                 </svg>
             </div>
             <div class="contact-copy">
-                <p class="eyebrow">
-                    <ScanLine aria-hidden="true" />
-                    保持联络
-                </p>
+                <p class="eyebrow"><ScanLine aria-hidden="true" />保持联络</p>
                 <h3>{{ contact.name }}</h3>
                 <p v-if="contact.text">{{ contact.text }}</p>
                 <a
@@ -41,8 +38,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    打开链接
-                    <ArrowUpRight aria-hidden="true" />
+                    打开链接<ArrowUpRight aria-hidden="true" />
                 </a>
             </div>
         </li>

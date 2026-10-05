@@ -18,15 +18,8 @@
                 </div>
             </div>
             <div class="footer-invitation">
-                <p>
-                    故事还在继续。
-                    <br />
-                    下一页，期待与你相遇。
-                </p>
-                <RouterLink class="text-link" to="/about#contacts">
-                    找到我们
-                    <ArrowUpRight aria-hidden="true" />
-                </RouterLink>
+                <p>故事还在继续。<br />下一页，期待与你相遇。</p>
+                <RouterLink class="text-link" to="/about#contacts">找到我们<ArrowUpRight aria-hidden="true" /></RouterLink>
             </div>
             <nav class="footer-links" aria-label="公开渠道">
                 <a
@@ -36,17 +29,13 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {{ contact.name }}
-                    <ArrowUpRight aria-hidden="true" />
+                    {{ contact.name }}<ArrowUpRight aria-hidden="true" />
                 </a>
             </nav>
         </div>
         <div class="container footer-bottom">
             <span>© {{ new Date().getFullYear() }} {{ site.name }}</span>
-            <span>
-                <Feather aria-hidden="true" />
-                网站由映像研究部维护
-            </span>
+            <span><Feather aria-hidden="true" />网站由映像研究部维护</span>
             <span>WITH STORIES, WITH YOU.</span>
         </div>
     </footer>

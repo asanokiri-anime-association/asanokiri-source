@@ -8,6 +8,14 @@
 
 `src/pages` 保留各栏目的完整结构，只有共享区域或独立交互才拆为组件。页面 DOM 顺序与视觉阅读顺序一致，不用 CSS `order`、反向 flex 或 dense grid 重排。
 
+模板里文字与行内元素之间的换行会渲染成空格，中文标题中会显出多余的间隔，所以写作 `让想象，<em>拥有名字。</em>`、`展开公告<ChevronDown aria-hidden="true" />`。Prettier 按 CSS 的显示方式处理空白，不会增删这类空白。一行放不下时，在标签内换行；按钮和链接都是 flex 容器，首尾空白不影响显示：
+
+```vue
+<RouterLink class="button-link button-link--outline" to="/culture">
+    打开故事之书<BookOpen aria-hidden="true" />
+</RouterLink>
+```
+
 ## 依赖与类型
 
 依赖使用 `^` 范围，`package-lock.json` 记录实际版本，`npm ci` 可复现安装。TypeScript 保持 6.x：7.0 不再提供 vue-tsc 依赖的编译器 API，待 vue-tsc 支持后再升级。
